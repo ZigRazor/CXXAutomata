@@ -1,7 +1,7 @@
 #ifndef CXXAUTOMATA_FA
 #define CXXAUTOMATA_FA
 
-#include "Automaton/Automaton.hpp"
+#include "Automaton.hpp"
 
 namespace CXXAUTOMATA
 {

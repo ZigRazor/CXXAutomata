@@ -1,4 +1,4 @@
-#include "FA/FA.hpp"
+#include "FA.hpp"
 
 namespace CXXAUTOMATA{
 

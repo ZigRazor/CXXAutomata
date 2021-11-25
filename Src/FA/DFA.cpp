@@ -1,14 +1,19 @@
+#include <deque>
+#include <algorithm>
 #include "DFA.hpp"
-#include "Exceptions/Exceptions.hpp"
+#include "Exceptions.hpp"
 
-namespace CXXAUTOMATA{
-    DFA::DFA(const States& state, const InputSymbols& inputSymbols, const Transitions&  transitions, const State& initialState, const States& finalStates, bool allowPartial): FA(){
-        this->states = states;
-        this->inputSymbols = inputSymbols;
-        this->transitions = transitions;
-        this->initialState = initialState;
-        this->finalStates = finalStates;
-        this->allowPartial = allowPartial;
+namespace CXXAUTOMATA {
+DFA::DFA(const States &state, const InputSymbols &inputSymbols,
+         const Transitions &transitions, const State &initialState,
+         const States &finalStates, bool allowPartial)
+    : FA() {
+  this->states = states;
+  this->inputSymbols = inputSymbols;
+  this->transitions = transitions;
+  this->initialState = initialState;
+  this->finalStates = finalStates;
+  this->allowPartial = allowPartial;
         this->validate();
 
     }
@@ -145,41 +150,49 @@ namespace CXXAUTOMATA{
                 unreachableStates.push_back(state);
             }
         }
-        for (auto unreachableState : unreachableStates){
-            states.erase(states.find(unreachableState));
-            transitions.erase(transitions.find(unreachableState));
-            if (finalStates.find(unreachableState) != finalStates.end()){
-                finalStates.erase(finalStates.find(unreachableState));
-            }
+        for (auto unreachableState : unreachableStates) {
+          states.erase(states.find(unreachableState));
+          transitions.erase(transitions.find(unreachableState));
+          if (finalStates.find(unreachableState) != finalStates.end()) {
+            finalStates.erase(finalStates.find(unreachableState));
+          }
         }
     }
+    std::set<State> DFA::computeReachableStates() const {
+      std::set<State> reachableStates;
+      std::deque<State> statesToCheck;
+      statesToCheck.push_back(initialState);
+      reachableStates.insert(initialState);
+      while (!statesToCheck.empty()) {
+        auto state = statesToCheck.front();
+        statesToCheck.pop_front();
+        for (auto transitionForState : transitions.at(state)) {
+          if (reachableStates.find(transitionForState.second) ==
+              reachableStates.end()) {
+            reachableStates.insert(transitionForState.second);
+            statesToCheck.push_back(transitionForState.second);
+          }
+        }
+      }
+      return reachableStates;
+    }
+    void DFA::mergeStates(bool retainNames) {
+      States eqClasses;
+      if (finalStates.size() != 0) {
+        for (auto state : finalStates) {
+          eqClasses.push_back(state);
+        }
+      }
+      if (finalStates.size() != states.size()) {
+        std::sort(finalStates.begin(), finalStates.end());
+        std::sort(states.begin(), states.end());
+        std::set_difference(states.begin(), states.end(), finalStates.begin(),
+                            finalStates.end(),
+                            std::inserter(eqClasses, eqClasses.end() - 1));
+      }
+    }
 
-
-}   
-
-    def _remove_unreachable_states(self):
-        """Remove states which are not reachable from the initial state."""
-        reachable_states = self._compute_reachable_states()
-        unreachable_states = self.states - reachable_states
-        for state in unreachable_states:
-            self.states.remove(state)
-            del self.transitions[state]
-            if state in self.final_states:
-                self.final_states.remove(state)
-
-    def _compute_reachable_states(self):
-        """Compute the states which are reachable from the initial state."""
-        reachable_states = set()
-        states_to_check = deque()
-        states_to_check.append(self.initial_state)
-        reachable_states.add(self.initial_state)
-        while states_to_check:
-            state = states_to_check.popleft()
-            for symbol, dst_state in self.transitions[state].items():
-                if dst_state not in reachable_states:
-                    reachable_states.add(dst_state)
-                    states_to_check.append(dst_state)
-        return reachable_states
+    } // namespace CXXAUTOMATA
 
     def _merge_states(self, retain_names=False):
         eq_classes = []

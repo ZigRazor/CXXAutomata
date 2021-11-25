@@ -2,7 +2,7 @@
 #define CXXAUTOMATA_AUTOMATON
 
 #include <string>
-#include "Common/Typedefs.hpp"
+#include "Typedefs.hpp"
 
 namespace CXXAUTOMATA
 {
@@ -41,24 +41,24 @@ namespace CXXAUTOMATA
         /**
         * @brief Check if the given string is accepted by this automaton.
         Return the automaton's final configuration if this string is valid.
-        * 
-        * @param input_str 
-        * @return States 
+        *
+        * @param input_str
+        * @return States
         */
-        virtual State readInput(const InputSymbols& input_str);
+        virtual State readInput(const InputSymbols &input_str);
         /**
          * @brief validate input to the automaton
-         * 
-         * @param input_str 
+         *
+         * @param input_str
          * @return true if this automaton accepts the given input.
          * @return false otherwise
          */
-        virtual bool acceptsInput(const std::string& input_str);
+        virtual bool acceptsInput(const InputSymbols &input_str);
         /**
-        * @brief Copy Construct a new Automaton object
-        * 
-        * @param other 
-        */
+         * @brief Copy Construct a new Automaton object
+         *
+         * @param other
+         */
         Automaton(const Automaton &other);
         /**
         * @brief 

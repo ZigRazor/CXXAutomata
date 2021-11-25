@@ -1,20 +1,23 @@
 #ifndef CXXAUTOMATA_DFA
 #define CXXAUTOMATA_DFA
 
-#include "FA/FA.hpp"
-#include "Common/Typedefs.hpp"
+#include "FA.hpp"
+#include "Typedefs.hpp"
+#include <set>
 
-namespace CXXAUTOMATA{
-    /**
-     * @brief A deterministic finite automaton.
-     * 
-     */
-    class DFA : public FA{
-        public:
-            DFA(const States& states, const InputSymbols& inputSymbols, const Transitions&  transitions, const State& initialState, const States& finalStates, bool allowPartial = false);
-            virtual ~DFA();
+namespace CXXAUTOMATA {
+/**
+ * @brief A deterministic finite automaton.
+ *
+ */
+class DFA : public FA {
+public:
+  DFA(const States &states, const InputSymbols &inputSymbols,
+      const Transitions &transitions, const State &initialState,
+      const States &finalStates, bool allowPartial = false);
+  virtual ~DFA();
 
-            /**
+  /**
              * @brief Return True if two DFAs are equivalent.
              * 
              * @param other 
@@ -155,20 +158,32 @@ namespace CXXAUTOMATA{
             State getNextCurrentState(const State& current_state, const InputSymbol& input_symbol) const;
 
             /**
-             * @brief Raise an error if the given config indicates rejected input.
-             * 
-             * @param current_state 
+             * @brief Raise an error if the given config indicates rejected
+             * input.
+             *
+             * @param current_state
              */
-            void checkForInputRejection(const State& current_state) const;
+            void checkForInputRejection(const State &current_state) const;
 
             /**
-             * @brief Remove states which are not reachable from the initial state.
-             * 
+             * @brief Remove states which are not reachable from the initial
+             * state.
+             *
              */
             void removeUnreachableStates();
 
+            /**
+             * @brief Compute the states which are reachable from the initial
+             * state.
+             *
+             * @return a set of unreachable states
+             */
+            std::set<State> computeReachableStates() const;
+
+            void mergeStates(bool retainNames = false);
+
             bool allowPartial;
-    };
+};
 }
 
 #endif /* CXXAUTOMATA_DFA */
