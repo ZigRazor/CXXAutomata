@@ -2,6 +2,7 @@
 #define CXXAUTOMATA_AUTOMATON
 
 #include <string>
+#include "Common/Typedefs.hpp"
 
 namespace CXXAUTOMATA
 {
@@ -29,20 +30,22 @@ namespace CXXAUTOMATA
         * @return true if this automaton is internally consistent
         * @return false otherwise
         */
-        virtual bool validate() = 0;
+        virtual bool validate() const = 0;
         /**
-        * @brief Return a generator that yields each step while reading input.
-        * 
-        * @param input_str 
-        */
-        virtual void readInputStepwise(const std::string& input_str) = 0;
+         * @brief Return a generator that yields each step while reading input.
+         * 
+         * @param input_str 
+         * @return States 
+         */
+        virtual States readInputStepwise(const InputSymbols& input_str) = 0;
         /**
         * @brief Check if the given string is accepted by this automaton.
         Return the automaton's final configuration if this string is valid.
         * 
         * @param input_str 
+        * @return States 
         */
-        virtual void readInput(const std::string& input_str);
+        virtual State readInput(const InputSymbols& input_str);
         /**
          * @brief validate input to the automaton
          * 
@@ -66,22 +69,28 @@ namespace CXXAUTOMATA
         */
         virtual bool operator==(const Automaton &rhs) const;
 
-    private:
+    protected:
         /**
         * @brief Raise an error if the initial state is invalid.
         * 
         */
-        virtual void validateInitialState();
+        virtual void validateInitialState() const;
         /**
         * @brief Raise an error if the initial state has no transitions defined.
         * 
         */
-        virtual void validateInitialStateTransitions();
+        virtual void validateInitialStateTransitions() const;
         /**
         * @brief Raise an error if any final states are invalid.
         * 
         */
-        virtual void validateFinalStates();
+        virtual void validateFinalStates() const;
+
+        States states;
+        InputSymbols inputSymbols;
+        Transitions transitions;
+        State initialState;
+        States finalStates;
     };
 } //CXXAUTOMATA
 
