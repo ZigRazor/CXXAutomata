@@ -3,16 +3,16 @@
 
 #include "Automaton.hpp"
 
-namespace CXXAUTOMATA
-{
-    /**
-     * @brief An abstract base class for finite automata.
-     * 
-     */
-    class FA : public Automaton{
-        FA();
-        virtual ~FA();
-    };
-}
+namespace CXXAUTOMATA {
+/**
+ * @brief An abstract base class for finite automata.
+ *
+ */
+class FA : public Automaton {
+public:
+  FA();
+  virtual ~FA();
+};
+} // namespace CXXAUTOMATA
 
 #endif /* CXXAUTOMATA_FA */

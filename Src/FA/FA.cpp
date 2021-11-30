@@ -1,8 +1,8 @@
 #include "FA.hpp"
 
-namespace CXXAUTOMATA{
+namespace CXXAUTOMATA {
 
-    FA::FA() : Automaton(){};
-    FA::~FA() {};
+FA::FA() : Automaton(){};
+FA::~FA(){};
 
-}
+} // namespace CXXAUTOMATA
