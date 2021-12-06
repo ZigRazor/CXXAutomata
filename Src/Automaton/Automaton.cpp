@@ -17,13 +17,13 @@ bool Automaton::operator==(const Automaton &rhs) const {
 
 Automaton::Automaton(const Automaton &other) {}
 
-State Automaton::readInput(const InputSymbols &input_str) {
+State Automaton::readInput(const InputSymbols_v &input_str) {
   auto validation_generator = readInputStepwise(input_str);
   auto last_state = validation_generator.back();
   return last_state;
 }
 
-bool Automaton::acceptsInput(const InputSymbols &input_str) {
+bool Automaton::acceptsInput(const InputSymbols_v &input_str) {
   try {
     readInput(input_str);
     return true;

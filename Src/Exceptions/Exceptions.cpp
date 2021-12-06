@@ -43,4 +43,9 @@ RejectionException::RejectionException(const std::string &message)
 
 RejectionException::~RejectionException() throw() {}
 
+NotImplementedException::NotImplementedException(const std::string &message)
+    : AutomatonException(message) {}
+
+NotImplementedException::~NotImplementedException() throw() {}
+
 } // namespace CXXAUTOMATA

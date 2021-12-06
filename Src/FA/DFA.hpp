@@ -98,7 +98,7 @@ public:
    * @param input_str
    * @return States
    */
-  States readInputStepwise(const InputSymbols &input_str) override;
+  States_v readInputStepwise(const InputSymbols_v &input_str) override;
 
   /**
    * @brief Create a minimal DFA which accepts the same inputs as this DFA.
@@ -220,7 +220,7 @@ public:
    * @param states
    * @return std::string
    */
-  static std::string stringifyStatesUnsorted(const States &states);
+  static std::string stringifyStatesUnsorted(const States_v &states);
 
   /**
    * @brief Stringify the given set of states as a single state name.
@@ -228,7 +228,7 @@ public:
    * @param states
    * @return std::string
    */
-  static std::string stringifyStates(const States &states);
+  static std::string stringifyStates(const States_v &states);
 
   /**
    * @brief Initialize this DFA as one equivalent to the given NFA.

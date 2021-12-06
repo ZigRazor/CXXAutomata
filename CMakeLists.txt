@@ -23,11 +23,14 @@ add_library(CXXAutomata SHARED
 
 
 
-
+include_directories(Test)
 add_executable(CXXAutomataTest  Test/main.cpp
-                                Test/testDFA.cpp)
+                                Test/testFA.cpp
+                                Test/testDFA.cpp
+                                )
 target_link_libraries(CXXAutomataTest CXXAutomata gtest pthread)
 
 gtest_discover_tests(CXXAutomataTest Test/main.cpp
+                                Test/testFA.cpp
                                 Test/testDFA.cpp
 )

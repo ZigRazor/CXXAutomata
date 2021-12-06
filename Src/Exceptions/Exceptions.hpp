@@ -175,6 +175,21 @@ public:
   virtual ~RejectionException() throw();
 };
 
+class NotImplementedException : public AutomatonException {
+public:
+  /**
+   * @brief Construct a new NotImplemented Exception object
+   *
+   * @param message
+   */
+  NotImplementedException(const std::string &message);
+  /**
+   * @brief Destroy the Rejection Exception object
+   *
+   */
+  virtual ~NotImplementedException() throw();
+};
+
 } // namespace CXXAUTOMATA
 
 #endif /* CXXAUTOMATA_EXCEPTIONS */

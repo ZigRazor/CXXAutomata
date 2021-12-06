@@ -12,9 +12,9 @@ public:
   ~NFA();
 
   State getNextCurrentState(const State &current_state,
-                               const InputSymbol &input_symbol) const;
+                               const InputSymbol &input_symbol) const{return State();};
 
-  States getLambdaClosure(const State &current_state) const;
+  States getLambdaClosure(const State &current_state) const{return States();};
 
 private:
   

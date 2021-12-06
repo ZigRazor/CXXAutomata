@@ -33,9 +33,9 @@ public:
    * @brief Return a generator that yields each step while reading input.
    *
    * @param input_str
-   * @return States
+   * @return States_v
    */
-  virtual States readInputStepwise(const InputSymbols &input_str) = 0;
+  virtual States_v readInputStepwise(const InputSymbols_v &input_str) = 0;
   /**
   * @brief Check if the given string is accepted by this automaton.
   Return the automaton's final configuration if this string is valid.
@@ -43,7 +43,7 @@ public:
   * @param input_str
   * @return States
   */
-  virtual State readInput(const InputSymbols &input_str);
+  virtual State readInput(const InputSymbols_v &input_str);
   /**
    * @brief validate input to the automaton
    *
@@ -51,7 +51,7 @@ public:
    * @return true if this automaton accepts the given input.
    * @return false otherwise
    */
-  virtual bool acceptsInput(const InputSymbols &input_str);
+  virtual bool acceptsInput(const InputSymbols_v &input_str);
   /**
    * @brief Copy Construct a new Automaton object
    *
