@@ -419,8 +419,8 @@ DFA DFA::unionJoin(const DFA &other, bool retainsName, bool minify) const {
 
 DFA DFA::intersection(const DFA &other, bool retainsName, bool minify) const {
   auto newDFA = crossProduct(other);
-  for (auto stateA : states) {
-    for (auto stateB : other.states) {
+  for (auto stateA : finalStates) {
+    for (auto stateB : other.finalStates) {
       States_v statesToAdd;
       statesToAdd.push_back(stateA);
       statesToAdd.push_back(stateB);
@@ -435,7 +435,7 @@ DFA DFA::intersection(const DFA &other, bool retainsName, bool minify) const {
 
 DFA DFA::difference(const DFA &other, bool retainsName, bool minify) const {
   auto newDFA = crossProduct(other);
-  for (auto stateA : states) {
+  for (auto stateA : finalStates) {
     for (auto stateB : other.states) {
       if (std::find(other.finalStates.begin(), other.finalStates.end(),
                     stateB) == other.finalStates.end()) {
@@ -480,6 +480,7 @@ DFA DFA::symmetricDifference(const DFA &other, bool retainsName,
 
 DFA DFA::complement() const {
   auto newDFA = *this;
+  newDFA.finalStates.clear();
   for (auto state : states) {
     if (std::find(finalStates.begin(), finalStates.end(), state) ==
         finalStates.end()) {
