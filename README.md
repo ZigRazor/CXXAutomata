@@ -9,3 +9,5 @@ Required GoogleTest (
     sudo cmake .
     sudo cmake --build . --target install
 )
+
+Inspired by: [automata-lib](https://pypi.org/project/automata-lib/#class-faautomaton-metaclassabcmeta)
